@@ -5,7 +5,6 @@ import { TasksComponent } from './tasks/tasks.component';
 
 import { DUMMY_USERS } from './dummy-users';
 
-import { IUser } from '../assets/interfaces/IUser';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,11 +15,14 @@ import { IUser } from '../assets/interfaces/IUser';
 export class AppComponent {
 
   users = DUMMY_USERS;
-  selectedUser!: IUser;
+  selectedUserId?: string;
 
-  onSelectUser(userId: string) {
-    console.log('Selected user ID:', userId);
-    this.selectedUser = DUMMY_USERS.find(user => user.id === userId) || {id : 'u-1', name: 'No User Selected', avatar: 'none.jpg'};
+  get selectedUser() {
+    return this.users.find(user => user.id === this.selectedUserId)!;
+  }
+
+  onSelectUser(id: string) {
+    this.selectedUserId = id;
   }
 
 }
